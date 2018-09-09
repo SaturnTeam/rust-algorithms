@@ -193,11 +193,6 @@ pub fn run() -> Result<()> {
     println!("{:?}", quuf);
     println!("{:?}", wquuf);
     println!();
-//    println!("{:#?}", uf.id);
-//    for i in 0..uf.id.len() {
-//        println!("{} {}", i, uf.id[i])
-//    }
-//    QuickUnionUF::new(4);
     Ok(())
 }
 
