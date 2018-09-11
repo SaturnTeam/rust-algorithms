@@ -4,12 +4,21 @@ use std::io::{BufRead, BufReader, Result};
 
 #[derive(Debug)]
 struct QuickFindUF {
-    count: usize,
-    // count of components (independent graphs)
+    count: usize, // count of components (independent graphs)
     id: Vec<i32>, // connected items. index as source and value as destination
 }
 
-impl QuickFindUF {
+trait Connected<T>: QuickUnionUF {
+    fn new(n: usize) -> T;
+    fn connected(&self, p: i32, q: i32) -> bool {
+        self.find(p) == self.find(q)
+    }
+
+    fn find(&self, pp: i32) -> i32;
+    fn union(&mut self, p: i32, q: i32);
+}
+
+impl Connected<QuickFindUF> for  QuickFindUF {
     /**
      * Initializes an empty union–find data structure with {@code n} sites
      * {@code 0} through {@code n-1}. Each site is initially in its own
@@ -59,12 +68,11 @@ impl QuickFindUF {
 
 #[derive(Debug)]
 struct QuickUnionUF {
-    count: usize,
-    // count of components (independent graphs)
+    count: usize, // count of components (independent graphs)
     id: Vec<i32>, // connected items. index as source and value as destination
 }
 
-impl QuickUnionUF {
+impl Connected<QuickUnionUF> for QuickUnionUF  {
     fn new(n: usize) -> QuickUnionUF {
         let mut vec: Vec<i32> = Vec::with_capacity(n); // create array in heap
         for i in 0..n {
