@@ -39,7 +39,7 @@ impl QuickSort for Vec<i32> {
         let mut i = low;
         let mut j = high + 1;
         let v = self[low];
-        while true {
+        loop {
             i += 1;
             // find item on low to swap
             while i != high && self[i] <= v { // TODO optimise code
