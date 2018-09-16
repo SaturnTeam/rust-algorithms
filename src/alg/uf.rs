@@ -8,12 +8,13 @@ struct QuickFindUF {
     id: Vec<i32>, // connected items. index as source and value as destination
 }
 
-trait Connected<T>: QuickUnionUF {
+trait Connected<T> {
     fn new(n: usize) -> T;
     fn connected(&self, p: i32, q: i32) -> bool {
         self.find(p) == self.find(q)
     }
 
+    fn count(&self) -> usize;
     fn find(&self, pp: i32) -> i32;
     fn union(&mut self, p: i32, q: i32);
 }
